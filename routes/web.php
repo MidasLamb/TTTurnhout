@@ -88,11 +88,7 @@ return view('ploeg', ['past_matches' => $past_matches, 'future_matches' => $futu
 Route::get('/contact/', function () {
 	return view('contact');
 });
-
-Route::get('/test', function() {
-	new VBLmatchdetails("BVBL17189180BNAHSEPABC");
-});
-
+	
 
 
 

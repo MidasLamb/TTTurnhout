@@ -1,7 +1,9 @@
 <?php
 namespace App\Libraries;
 
+use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 class VBLapi{
 	// property declaration
@@ -26,16 +28,47 @@ class VBLapi{
 	public static function apiCall($url){
         $fileUrl = rawurlencode($url);
         if (file_exists("cache/".$fileUrl)){
-            $timeSinceChangeInSeconds = time() - filemtime("cache/".$fileUrl);
-            if ($timeSinceChangeInSeconds < 60*60*72) {
-                $api_string = file_get_contents("cache/".$fileUrl);
-                return $api_string;
-            } else {
-                return self::renewFileContents($url);
-            }
+            $api_string = file_get_contents("cache/".$fileUrl);
+            return $api_string;
         } else {
             return self::renewFileContents($url);
         }
+    }
+
+    public static function renewCache(){
+        $fileArray = scandir("cache");
+        $requestArray = [];
+        $base_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/";
+        foreach($fileArray as $file){
+            if ($file == '.'){
+                continue;
+            }
+            if ($file == '..'){
+                continue;
+            }
+
+            $decoded = rawurldecode($file);
+
+            $requestArray[$file]=new Request('GET', $base_url. $decoded, [
+			    'headers' => [
+				    "Accept" => 'application/json,text/plain,*/*'
+				    ]
+				]);
+        }
+        $pool = new Pool(new Client(), $requestArray, [
+            'concurrency' => 10,
+            'fulfilled' => function($response, $fileName){
+                $api_string = json_encode(json_decode($response->getBody()));
+                $f = fopen("cache/".$fileName, 'w');
+                fwrite($f, $api_string);
+                fclose($f);
+            },
+            'rejected' => function($reason,$index){
+                var_dump($reason);
+            },
+        ]);
+        $promise = $pool->promise();
+        $promise->wait();
     }
 
     private static function renewFileContents($url){
