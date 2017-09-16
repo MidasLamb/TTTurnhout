@@ -7,7 +7,7 @@ Homestead.json
 Homestead.yaml
 .env
 .git-ftp-tmp
-/public_html/apiCall/*
+/public/cache/*
 .buildpath
 .project
 .settings
