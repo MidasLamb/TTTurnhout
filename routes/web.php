@@ -3,6 +3,9 @@
 use GuzzleHttp\Client;
 use App\Libraries\VBLapi;
 use App\Libraries\VBLmatch;
+use App\Libraries\VBLrangschikking;
+use App\Libraries\VBLpoule;
+use App\Libraries\VBLteam;
 
 /*
 |--------------------------------------------------------------------------
