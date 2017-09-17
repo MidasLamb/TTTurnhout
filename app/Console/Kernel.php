@@ -45,7 +45,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function() {
             chdir('/home/ttturn1q/ttturnhout/public');
             VBLapi::renewCache();
-        })->sundays();//->everyThirtyMinutes();
+        })->sundays()->everyThirtyMinutes();
     }
 
     /**
