@@ -37,11 +37,11 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function() {
             VBLapi::renewCache();
-        })->saturdays()->everyThirtyMinutes()->between('7:00', '23:59');
+        })->saturdays()->everyThirtyMinutes();
 
         $schedule->call(function() {
             VBLapi::renewCache();
-        })->sundays()->everyThirtyMinutes()->between('7:00', '23:59');
+        })->sundays()->everyThirtyMinutes();
     }
 
     /**
