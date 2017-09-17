@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->call(function() {
             VBLapi::renewCache();
-        })->weekdays()->twiceDaily(9,21);
+        });
 
         $schedule->call(function() {
             VBLapi::renewCache();
