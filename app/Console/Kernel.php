@@ -28,10 +28,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function() {
-            chdir("/home/ttturn1q/ttturnhout/public");
-            echo(getcwd());
             VBLapi::renewCache();
-        });
+        })->weekdays()->twiceDaily(9,19);
 
         $schedule->call(function() {
             VBLapi::renewCache();
