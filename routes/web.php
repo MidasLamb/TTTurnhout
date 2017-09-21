@@ -30,6 +30,13 @@ Route::get('/', function () {
 		$past_match->findComplementaryMatch($all_matches_of_club);
 	}
 
+	foreach($next_week_matches as $match){
+		$match->findComplementaryMatch($all_matches_of_club);
+	}
+	foreach($this_week_matches as $match){
+		$match->findComplementaryMatch($all_matches_of_club);
+	}
+
 	//$ics = createICSFromMatches($all_matches_of_club);
 	//$f = fopen("testics.ics", 'w');
 	//fwrite($f, $ics);
@@ -40,7 +47,7 @@ Route::get('/', function () {
     	 'prev_week_matches'=> $prev_week_matches
     	 ]
     	);
-});
+})->name('home');
 
 Route::get('/kalender', function () {
 	$all_matches_of_club = VBLapi::getAllMatchesByClub();
@@ -83,15 +90,50 @@ Route::get('/ploeg/{id}', function ($id) {
 	$past_matches = array_reverse(VBLmatch::splitMatchesByWeek(VBLmatch::getPastMatches($all_matches)), true);
 	$future_matches = VBLmatch::splitMatchesByWeek(VBLmatch::getFutureMatches($all_matches));
 
+
+
+	foreach($past_matches as $week){
+		foreach($week as $past_match){
+			$past_match->findComplementaryMatch($all_matches);
+		}
+	}
+
+	foreach($future_matches as $week){
+		foreach($week as $future_match){
+			$future_match->findComplementaryMatch($all_matches);
+		}
+	}
+
 	$VBLrangschikking = new VBLrangschikking($team);
 
 
-return view('ploeg', ['past_matches' => $past_matches, 'future_matches' => $future_matches,'team_name' => $team_name, 'team_id' => $id, 'rangschikking' => $VBLrangschikking]); }); Route::get('/contact', function () { return view('home'); });
+	return view('ploeg', ['past_matches' => $past_matches, 'future_matches' => $future_matches,'team_name' => $team_name, 'team_id' => $id, 'rangschikking' => $VBLrangschikking]); 
+}); 
+
+Route::get('/contact', function () { return view('home'); });
 
 Route::get('/contact/', function () {
 	return view('contact');
 });
-	
+
+Route::get('/admin', function() {
+	return "Admin menu";
+})->middleware('auth');
+
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+//Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 

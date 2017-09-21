@@ -4,14 +4,13 @@
 	<div class="hidden-xs" style="position: fixed; top:0px;left:0px; width:225px; height:52px;background-color: #f8f8f8; border: 1px solid #e7e7e7; z-index:-1">
 
 	</div>
-	<div class="container-fluid" style=" margin-top: -20px;">
+	<div class="container-fluid" style=" margin-top: 50px;">
 	  <div class="row">
 	    <div class="col-sm-3 col-lg-2">
 	      <nav class="navbar navbar-default navbar-fixed-side">
 	        <div class="container">
               <div class="navbar-header">
                 <button class="navbar-toggle" data-target="#sidebar" data-toggle="collapse">
-                  <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
@@ -50,7 +49,49 @@
           <h2>Kalender</h2>
             <div class="col-md-12"> 
               @foreach($future_matches as $week => $matches)
-                @printFutureMatchesTable($matches)
+                <h4> Week: {{ $week }} </h4>
+                <table class="table table-striped table-bordered table-hover" id="futurMatches" >
+                            <colgroup>
+                                <col class="col-xs-2">
+                                <col class="col-xs-5">
+                                <col class="col-xs-5">
+                              </colgroup>
+                        @foreach($matches as $match)
+                            <tr onClick="showDetails(this, '{{ $match->extraDetailHTML }}')" data-collapsed="1">
+                              <td style="font-size:small; text-align:center">
+                                {{ $match->datumString }}
+                                <br>                 
+                                {{ $match->beginTijd }}
+
+                              </td>
+                              <td style="text-align:right">
+                                @if ($match->homeGame)
+                                  <b><a href="/ploeg/{{$match->siteid}}">
+                                @endif
+                                {{$match->tTNaam}}
+
+                                @if($match->homeGame)
+                                  </a></b>
+                                @endif
+
+                    @if($match->hasComplementaryMatch)
+                                  
+                                @endif
+                              </td>
+                              <td style="text-align:left">
+                                @if(!($match->homeGame))
+                                  <b><a href="/ploeg/{{$match->siteid}}">
+                                @endif
+                                {{$match->tUNaam}}
+
+                                @if(!($match->homeGame))
+                                  </a></b>
+                                @endif
+                              </td>
+                            </tr>
+                        @endforeach
+                      </table>
+                
               @endforeach
             </div>
         </div>
@@ -172,6 +213,21 @@
 
 
   <script>
+  function showDetails(caller, content){
+		var rowIndex = caller.rowIndex;
+		var table = caller.parentElement.parentElement; // 2 levels because 1 level is tbody!
+		if (caller.getAttribute("data-collapsed") == "1"){
+			var row = table.insertRow(rowIndex  + 1);
+			var cell = row.insertCell(0);
+			cell.setAttribute("colspan", "4");
+			cell.innerHTML = content;
+			caller.setAttribute("data-collapsed", "0");
+		} else {
+			table.deleteRow(rowIndex + 1);
+			caller.setAttribute("data-collapsed", "1");
+		}
+	}
+
   var subsections = ["team", "kalender", "uitslagen", "rangschikking", "statistieken"];
 
   function checkHash(){

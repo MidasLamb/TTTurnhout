@@ -100,7 +100,7 @@ class VBLmatch {
 		} 
 
 		$details = new VBLmatchdetails($this->guid);
-		
+		$html = $html."Onze plaats: ".$this->getOwnRanking()."<br>";
 		$html = $html."Plaats tegenstander: ".$this->findOtherTeamRanking()."<br>";
 		$html = $html."Kleur tegenstander: ".$this->findOtherTeamColors()."<br>";
 		$html = $html."Adres: ".$details->adres;
@@ -109,10 +109,39 @@ class VBLmatch {
 	}
 
 	private function findOtherTeamRanking(){
-		$othdet = $this->getOtherTeamDetails();
-		if ($othdet == null)
-			return null;
-		return $othdet["rangNr"];
+		$teamGuid;
+		if ($this->homeGame){
+			$teamGuid = $this->tUGUID;
+		} else {
+			$teamGuid = $this->tTGUID;
+		}
+		$res = json_decode(VBLapi::apiCall("pouleByGuid?pouleguid=".$this->pouleGUID))[0];
+		$ranking = "-";
+		foreach($res->teams as $team){
+			if ($team->guid == $teamGuid){
+				$ranking = $team->rangNr;
+				break;
+			}
+		}
+		return $ranking;
+	}
+
+	private function getOwnRanking(){
+		$teamGuid;
+		if ($this->homeGame){
+			$teamGuid = $this->tTGUID;
+		} else {
+			$teamGuid = $this->tUGUID;
+		}
+		$res = json_decode(VBLapi::apiCall("pouleByGuid?pouleguid=".$this->pouleGUID))[0];
+		$ranking;
+		foreach($res->teams as $team){
+			if ($team->guid == $teamGuid){
+				$ranking = $team->rangNr;
+				break;
+			}
+		}
+		return $ranking;
 	}
 
 	private function findOtherTeamColors(){
@@ -141,34 +170,6 @@ class VBLmatch {
 		}
 		return $correct_team->shirtKleur."(".$correct_team->shirtReserve.")";
 
-	}
-
-	private function getOtherTeamDetails(){
-		$teamGuid;
-		if ($this->homeGame){
-			$teamGuid = $this->tTGUID;
-		} else {
-			$teamGuid = $this->tUGUID;
-		}
-		$res = VBLapi::apiCall("TeamDetailByGuid?teamGuid=".$teamGuid);
-		$arr = json_decode(json_encode(json_decode($res)[0]), True);
-		$poules = $arr["poules"];
-		$correct_poule = null;
-		foreach($poules as $poule){
-			if ($poule["guid"] == $this->pouleGUID)
-				$correct_poule = $poule;
-		}
-		if ($correct_poule == null)
-			return null;
-		$teams = $correct_poule["teams"];
-		$correct_team = null;
-		foreach($teams as $team){
-			if (($team["guid"] == $this->tUGUID && $this->homeGame) ||($team["guid"] == $this->tTGUID && !$this->homeGame))
-				$correct_team = $team;
-		}
-		if ($correct_team == null)
-			return null;
-		return $correct_team;
 	}
 
 	static public function seperateAndOrganizeMatchesByDay($matches){
