@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.app')
 
 @section('content')
 	<div class="hidden-xs" style="position: fixed; top:0px;left:0px; width:225px; height:52px;background-color: #f8f8f8; border: 1px solid #e7e7e7; z-index:-1">
