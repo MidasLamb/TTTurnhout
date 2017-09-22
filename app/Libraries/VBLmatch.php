@@ -91,8 +91,10 @@ class VBLmatch {
 	}
 
 	public function createExtraDetailHTML(){
+		$extraDetails = new \stdClass();
 		$html = "";
 		if ($this->hasComplementaryMatch){
+			$complementaryMatch = $this->complementaryMatch;
 			$comp = $this->complementaryMatch;
 			$uitslag = $comp->uitslag;
 			if (!$uitslag == "")
@@ -100,12 +102,19 @@ class VBLmatch {
 		} 
 
 		$details = new VBLmatchdetails($this->guid);
+
+		$extraDetails->ownRanking = $this->getOwnRanking();
+		$extraDetails->otherRanking = $this->findOtherTeamRanking();
+		$extraDetails->otherTeamColors = $this->findOtherTeamColors();
+		$extraDetails->adress = $details->adres;
+
 		$html = $html."Onze plaats: ".$this->getOwnRanking()."<br>";
 		$html = $html."Plaats tegenstander: ".$this->findOtherTeamRanking()."<br>";
 		$html = $html."Kleur tegenstander: ".$this->findOtherTeamColors()."<br>";
 		$html = $html."Adres: ".$details->adres;
 
 		$this->extraDetailHTML = $html;
+		$this->extraDetails = $extraDetails;
 	}
 
 	private function findOtherTeamRanking(){
@@ -168,7 +177,7 @@ class VBLmatch {
 			if ($team->guid == $teamGuid)
 				$correct_team = $team;
 		}
-		return $correct_team->shirtKleur."(".$correct_team->shirtReserve.")";
+		return $correct_team->shirtKleur." (".$correct_team->shirtReserve.")";
 
 	}
 
