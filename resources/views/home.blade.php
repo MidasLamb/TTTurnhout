@@ -62,7 +62,7 @@
         </tr>
         <tr class="details-row">
           <td style="text-align:center;">
-            <div class="match-extra-details">
+            <div class="match-extra-details match-extra-details-adres">
                Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
@@ -134,7 +134,7 @@
         </tr>
         <tr class="details-row">
           <td style="text-align:center">
-            <div class="match-extra-details">
+            <div class="match-extra-details  match-extra-details-adres">
               Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
@@ -219,7 +219,7 @@
         </tr>
         <tr class="details-row">
           <td style="text-align:center;">
-            <div class="match-extra-details">
+            <div class="match-extra-details  match-extra-details-adres">
                Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
