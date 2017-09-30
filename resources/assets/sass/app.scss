@@ -9,6 +9,13 @@
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 //Midas defined
+
 .match-extra-details-adres{
     font-size: 0.8em;
+}
+
+@media only screen and (min-width : 992px) {
+    .match-extra-details-adres{
+        font-size: 0.95em;
+    }  
 }
