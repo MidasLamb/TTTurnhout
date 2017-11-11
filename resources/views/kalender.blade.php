@@ -52,6 +52,7 @@
                   {{ $match->complementaryMatch->tTNaam }}
                   {{ $match->complementaryMatch->uitslag }}
                   {{ $match->complementaryMatch->tUNaam }}
+                  <br>
                 @endif
                 Onze plaats: {{ $match->extraDetails->ownRanking}} <br>
                 Plaats tegenstander: {{ $match->extraDetails->otherRanking}} <br>
@@ -131,6 +132,7 @@
                     {{ $match->complementaryMatch->tTNaam }}
                     {{ $match->complementaryMatch->uitslag }}
                     {{ $match->complementaryMatch->tUNaam }}
+                    <br>
                   @endif
                   Onze plaats: {{ $match->extraDetails->ownRanking}} <br>
                   Plaats tegenstander: {{ $match->extraDetails->otherRanking}} <br>
