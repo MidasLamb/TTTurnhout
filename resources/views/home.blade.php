@@ -276,9 +276,12 @@
   }
 
   $(document).ready(function(){
-    $(".match-extra-details").each(function(){
+    setTimeout(() => {
+      $(".match-extra-details").each(function(){
       $(this).slideUp();
     });
+    }, 1000);
+    
   });
 </script>
 @endsection
