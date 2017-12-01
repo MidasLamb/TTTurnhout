@@ -1,38 +1,5 @@
 @import 'bootstrap';
 @import 'navbar-fixed-side'; 
 @import 'sidebar';
+@import 'scoreTables';
 
-.match-extra-details-adres{
-    font-size: 0.8em;
-}
-
-@media only screen and (min-width : 992px) {
-    .match-extra-details-adres{
-        font-size: 0.95em;
-    }  
-}
-
-.date-column {
-    text-align: center
-}
-
-.hometeam-column {
-    text-align: right
-}
-
-.score-column {
-    text-align: center
-}
-
-.awayteam-column {
-    text-align: left
-}
-
-.td-match-extra-details {
-    text-align: center;
-    padding: 0px;
-}
-
-.match-extra-details{
-    margin:8px;
-}

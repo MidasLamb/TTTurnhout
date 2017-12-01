@@ -4,29 +4,29 @@
 @section('content')
   <div class="col-md-12"> 
     <h3> Wedstrijden deze week </h3>
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered past-score-table">
       <colgroup>
-        <col class="col-xs-2">
-        <col class="col-xs-4">
-        <col class="col-xs-2"> 
-        <col class="col-xs-4">
+        <col class="col-xs-2 date-column">
+        <col class="col-xs-4 hometeam-column">
+        <col class="col-xs-2 score-column"> 
+        <col class="col-xs-4 awayteam-column">
       </colgroup>
       <thead>
         <tr >
-          <th style="text-align:center">Datum</th>
-          <th style="text-align:right">Thuisploeg</th>
-          <th style="text-align:center">Score</th>
-          <th style="text-align:left">Uitploeg</th>
+          <th>Datum</th>
+          <th>Thuisploeg</th>
+          <th>Score</th>
+          <th>Uitploeg</th>
         </tr>
       </thead>
       <tbody>
       @foreach($this_week_matches as $match)
         <tr>
-          <td style="text-align:center;">
+          <td>
             {{ $match->datumString }} <br>
             {{ $match->beginTijd }}
           </td>
-          <td style="text-align:right">
+          <td>
             @if ($match->homeGame)
               <b><a href="/ploeg/{{$match->siteid}}">
             @endif
@@ -39,11 +39,11 @@
 
           <td
             @if($match->draw)
-              style="text-align:center">
+              >
             @elseif($match->victory)
-              style="text-align:center; background-color: #47a35a; color: white;">
+              style="background-color: #47a35a; color: white;">
             @else
-              style="text-align:center; background-color: #ea6262; color: white;">
+              style="background-color: #ea6262; color: white;">
             @endif
             {{ $match->uitslag}}
           </td>
@@ -61,13 +61,16 @@
           </td>
         </tr>
         <tr class="details-row">
-          <td style="text-align:center;">
+          <td class="td-match-extra-details-date">
+            <div class="hidden-for-width">
+              Adres: <br>{{ $match->extraDetails->adress}}
+            </div>
             <div class="match-extra-details match-extra-details-adres">
-               Adres: <br>{{ $match->extraDetails->adress}}
+              Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
-          <td colspan="3" style="text-align:center;padding:0px;">
-            <div class="match-extra-details" style="margin:8px">
+          <td colspan="3" class="td-match-extra-details">
+            <div class="match-extra-details">
               @if($match->hasComplementaryMatch)
                 {{ $match->complementaryMatch->tTNaam }}
                 {{ $match->complementaryMatch->uitslag }}
@@ -78,7 +81,7 @@
               Plaats tegenstander: {{ $match->extraDetails->otherRanking}} <br>
               Kleuren tegenstander: {{ $match->extraDetails->otherTeamColors}} <br>
             </div>
-            <div style="width:100%;cursor:pointer;" onclick="toggleDetails(this)" >
+            <div class="extra-details-toggle" onclick="toggleDetails(this)" >
               <span class="menu glyphicon glyphicon-menu-down" aria-hidden="true">
             </div>
           </td>
@@ -90,7 +93,7 @@
   <!-- Volgende week -->
   <div class="col-md-6"> 
     <h3> Wedstrijden volgende week </h3>
-    <table class="table table-striped table-bordered" id="futurMatches" >
+    <table class="table table-striped table-bordered future-score-table" id="futurMatches" >
       <colgroup>
         <col class="col-xs-2">
         <col class="col-xs-5">
@@ -98,21 +101,21 @@
       </colgroup>
       <thead>
         <tr >
-          <th style="text-align:center">Datum</th>
-          <th style="text-align:right">Thuisploeg</th>
-          <th style="text-align:left">Uitploeg</th>
+          <th>Datum</th>
+          <th>Thuisploeg</th>
+          <th>Uitploeg</th>
         </tr>
       </thead>
       <tbody>
       @foreach($next_week_matches as $match)
         <tr>
-          <td style="font-size:small; text-align:center">
+          <td>
             {{ $match->datumString }}
             <br>                 
             {{ $match->beginTijd }}
 
           </td>
-          <td style="text-align:right">
+          <td>
             @if ($match->homeGame)
               <b><a href="/ploeg/{{$match->siteid}}">
             @endif
@@ -122,7 +125,7 @@
               </a></b>
             @endif
           </td>
-          <td style="text-align:left">
+          <td>
             @if(!($match->homeGame))
               <b><a href="/ploeg/{{$match->siteid}}">
             @endif
@@ -134,13 +137,13 @@
           </td>
         </tr>
         <tr class="details-row">
-          <td style="text-align:center">
+          <td class="td-match-extra-details-date">
             <div class="match-extra-details  match-extra-details-adres">
               Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
-          <td colspan="3" style="text-align:center;padding:0px;">
-            <div class="match-extra-details" style="margin:8px">
+          <td colspan="3" class="td-match-extra-details">
+            <div class="match-extra-details">
               @if($match->hasComplementaryMatch)
                 {{ $match->complementaryMatch->tTNaam }}
                 {{ $match->complementaryMatch->uitslag }}
@@ -151,7 +154,7 @@
               Plaats tegenstander: {{ $match->extraDetails->otherRanking}} <br>
               Kleuren tegenstander: {{ $match->extraDetails->otherTeamColors}} <br>
             </div>
-            <div style="width:100%;cursor:pointer;" onclick="toggleDetails(this)" >
+            <div class="extra-details-toggle" onclick="toggleDetails(this)" >
               <span class="menu glyphicon glyphicon-menu-down" aria-hidden="true">
             </div>
           </td>
@@ -162,8 +165,8 @@
   </div>
   <!-- Vorige week -->
   <div class="col-md-6"> 
-    <h3> Wedstrijden vorige week </h3>
-    <table class="table table-striped table-bordered">
+    <h3> Wedstrijden vorige week</h3>
+    <table class="table table-striped table-bordered past-score-table">
       <colgroup>
         <col class="col-xs-2">
         <col class="col-xs-4">
@@ -172,20 +175,20 @@
       </colgroup>
       <thead>
         <tr >
-          <th style="text-align:center">Datum</th>
-          <th style="text-align:right">Thuisploeg</th>
-          <th style="text-align:center">Score</th>
-          <th style="text-align:left">Uitploeg</th>
+          <th>Datum</th>
+          <th>Thuisploeg</th>
+          <th>Score</th>
+          <th>Uitploeg</th>
         </tr>
       </thead>
       <tbody>
       @foreach($prev_week_matches as $match)
         <tr>
-          <td style="text-align:center;">
+          <td>
             {{ $match->datumString }} <br>
             {{ $match->beginTijd }}
           </td>
-          <td style="text-align:right">
+          <td>
             @if ($match->homeGame)
               <b><a href="/ploeg/{{$match->siteid}}">
             @endif
@@ -198,11 +201,11 @@
 
           <td
             @if($match->draw)
-              style="text-align:center">
+              >
             @elseif($match->victory)
-              style="text-align:center; background-color: #47a35a; color: white;">
+              style="background-color: #47a35a; color: white;">
             @else
-              style="text-align:center; background-color: #ea6262; color: white;">
+              style="background-color: #ea6262; color: white;">
             @endif
             {{ $match->uitslag}}
           </td>
@@ -220,13 +223,16 @@
           </td>
         </tr>
         <tr class="details-row">
-          <td style="text-align:center;">
-            <div class="match-extra-details  match-extra-details-adres">
-               Adres: <br>{{ $match->extraDetails->adress}}
+          <td class="td-match-extra-details-date">
+            <div class="hidden-for-width">
+              Adres: <br>{{ $match->extraDetails->adress}}
+            </div>
+            <div class="match-extra-details match-extra-details-adres">
+              Adres: <br>{{ $match->extraDetails->adress}}
             </div>
           </td>
-          <td colspan="3" style="text-align:center;padding:0px;">
-            <div class="match-extra-details" style="margin:8px">
+          <td colspan="3" class="td-match-extra-details">
+            <div class="match-extra-details">
               @if($match->hasComplementaryMatch)
                 {{ $match->complementaryMatch->tTNaam }}
                 {{ $match->complementaryMatch->uitslag }}
@@ -237,7 +243,7 @@
               Plaats tegenstander: {{ $match->extraDetails->otherRanking}} <br>
               Kleuren tegenstander: {{ $match->extraDetails->otherTeamColors}} <br>
             </div>
-            <div style="width:100%;cursor:pointer;" onclick="toggleDetails(this)" >
+            <div class="extra-details-toggle" onclick="toggleDetails(this)" >
               <span class="menu glyphicon glyphicon-menu-down" aria-hidden="true">
             </div>
           </td>
