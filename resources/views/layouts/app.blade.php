@@ -13,7 +13,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>KBBC T&T Turnhout</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <style>
       .navbar {border-radius: 0px;}
       .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
