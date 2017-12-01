@@ -1,14 +1,6 @@
-
-// Fonts
-//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-// Variables
-//@import "variables";
-
-// Bootstrap
-//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
-//Midas defined
+@import 'bootstrap';
+@import 'navbar-fixed-side'; 
+@import 'sidebar';
 
 .match-extra-details-adres{
     font-size: 0.8em;
@@ -18,4 +10,29 @@
     .match-extra-details-adres{
         font-size: 0.95em;
     }  
+}
+
+.date-column {
+    text-align: center
+}
+
+.hometeam-column {
+    text-align: right
+}
+
+.score-column {
+    text-align: center
+}
+
+.awayteam-column {
+    text-align: left
+}
+
+.td-match-extra-details {
+    text-align: center;
+    padding: 0px;
+}
+
+.match-extra-details{
+    margin:8px;
 }

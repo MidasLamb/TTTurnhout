@@ -13,10 +13,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>KBBC T&T Turnhout</title>
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/navbar-fixed-side.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
       .navbar {border-radius: 0px;}
