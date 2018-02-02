@@ -3,3 +3,10 @@
 @import 'sidebar';
 @import 'scoreTables';
 
+.container, .col-md-12 {
+    @media screen and (max-width: $screen-xs-min) {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+

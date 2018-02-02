@@ -1,1 +1,32 @@
-!function(n){function r(e){if(t[e])return t[e].exports;var o=t[e]={i:e,l:!1,exports:{}};return n[e].call(o.exports,o,o.exports,r),o.l=!0,o.exports}var t={};return r.m=n,r.c=t,r.i=function(n){return n},r.d=function(n,r,t){Object.defineProperty(n,r,{configurable:!1,enumerable:!0,get:t})},r.n=function(n){var t=n&&n.__esModule?function(){return n["default"]}:function(){return n};return r.d(t,"a",t),t},r.o=function(n,r){return Object.prototype.hasOwnProperty.call(n,r)},r.p="",r(r.s=0)}([function(n,r){}]);
+
+function toggleDetails(caller){
+    var row = $(caller).closest(".details-row");
+    var menu = row.find(".menu");
+    row.find(".match-extra-details").each(function(){
+        if($(this).is(":visible")){
+        $(this).slideUp();
+        menu.fadeOut(400, function(){
+            menu.removeClass("glyphicon-menu-up");
+            menu.addClass("glyphicon-menu-down")
+            menu.fadeIn(400); 
+        });
+        
+        } else {
+        $(this).slideDown();
+        menu.fadeOut(400, function(){
+            menu.removeClass("glyphicon-menu-down");
+            menu.addClass("glyphicon-menu-up")
+            menu.fadeIn(400); 
+        });
+        }
+    });
+}
+
+$(document).ready(function(){
+    setTimeout(() => {
+        $(".match-extra-details").each(function(){
+            $(this).slideUp();
+        });
+    }, 1000);
+
+});

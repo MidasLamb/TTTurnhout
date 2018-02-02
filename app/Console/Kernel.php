@@ -46,6 +46,14 @@ class Kernel extends ConsoleKernel
             chdir('/home/ttturn1q/ttturnhout/public');
             VBLapi::renewCache();
         })->sundays()->everyThirtyMinutes();
+
+
+        /*
+        $schedule->call(function() {
+            chdir('public');
+            VBLapi::renewCache();
+        })->everyMinute();
+        */ // To run locally in dev! cli: php artisan schedule:run
     }
 
     /**

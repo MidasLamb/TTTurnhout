@@ -2,6 +2,8 @@
 
 namespace App\Libraries;
 
+use App\Providers\Helpers;
+
 class VBLmatch {
 	public $json;
 	public $guid;
@@ -63,12 +65,12 @@ class VBLmatch {
 		}
 
 		if ($this->homeGame){
-			$name = codeToName(substr($this->tTGUID, 8, 3)) . " " . substr($this->tTGUID, -1);
+			$name = Helpers::teamCodeToReadableName(substr($this->tTGUID, 8));
 			$this->tTNaam = $name;
 			$this->siteid = substr($this->tTGUID, 8, 3) . substr($this->tTGUID, -1);
 			$this->victory = $home_victory;
 		} else {
-			$name = codeToName(substr($this->tUGUID, 8, 3)) . " " . substr($this->tUGUID, -1);
+			$name =  Helpers::teamCodeToReadableName(substr($this->tUGUID, 8));
 			$this->tUNaam = $name;
 			$this->siteid = substr($this->tUGUID, 8, 3) . substr($this->tUGUID, -1);
 			$this->victory = ! $home_victory;

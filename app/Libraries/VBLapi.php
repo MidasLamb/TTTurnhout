@@ -4,6 +4,7 @@ namespace App\Libraries;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use App\Providers\Helpers;
 
 class VBLapi{
 	// property declaration
@@ -23,7 +24,22 @@ class VBLapi{
 			array_push($matches, $match);
 		}
 		return VBLmatch::orderMatchesByDayThenHour($matches);
-	}
+    }
+    
+    static public function getAllClubTeams() {
+        $res = VBLapi::apiCall("OrgDetailByGuid?issguid=".VBLapi::club_guid);
+        $te = json_decode($res);
+
+        $guids = array();
+        
+        foreach($te[0]->teams as $t){
+            $guid = str_replace(" ", "", $t->guid);
+            $guid = str_replace(VBLapi::club_guid, "", $guid);
+            $guids[Helpers::teamCodeToReadableName($guid)] = $guid;
+        }
+
+        return $guids;
+    }
 
 	public static function apiCall($url){
         $fileUrl = rawurlencode($url);

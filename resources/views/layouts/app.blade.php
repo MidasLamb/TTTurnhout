@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Site voor Koninklijke Basketbalclub T&T Turnhout. Wedstrijdlocaties, toekomstige wedstrijden, afgelopen wedstrijden en wedstrijden deze week.">
     <meta name="application-name" content="KBBC T&T Turnhout">
     <!--
     <meta name="theme-color" content="HEXWAARDE"> -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="/favicon.ico">
     <title>KBBC T&T Turnhout</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     <style>
       .navbar {border-radius: 0px;}
       .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
@@ -66,17 +65,28 @@
                 @endforeach
               </ul>
             </li>
+
+           
           </ul>
 
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="/contact">Contact</a></li>
+              @if (Auth::check())
+              <li class="dropdown {{ (Request::is('admin/*')) ? 'active' : '' }}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Menu <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="{{ Request::is('admin/ploegen') ? 'active' : '' }}"><a href="/admin/ploegen">Alle Ploegen</a></li>
+                </ul>
+              </li>
+              @endif
+
+            <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="/contact" style="margin-right:20px">Contact</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div>
+    <div style="margin-top:50px">
       @yield('content')
     </div>
 
@@ -84,7 +94,8 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/app.js"></script>
 
     @yield('scripts')
   </body>

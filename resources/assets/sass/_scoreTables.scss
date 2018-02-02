@@ -78,3 +78,24 @@
     cursor: pointer;
     margin:0px;
 }
+
+.detail-score-table  > tbody > tr > td{
+    &:nth-child(1){
+        text-align: right;
+        width: 40%;
+    }
+
+    &:nth-child(2){
+        text-align: center;
+        width: 20%;
+    }
+
+    &:nth-child(3){
+        text-align: left;
+        width: 40%;
+    }
+}
+
+.detail-score-table {
+    margin-bottom: 0px;
+}

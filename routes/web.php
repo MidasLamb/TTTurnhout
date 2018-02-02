@@ -79,7 +79,7 @@ Route::get('/ploeg/{id}', function ($id) {
 	$team = VBLapi::apiCall("TeamDetailByGuid?teamGuid=".VBLapi::club_guid.$parsed_id); // rangschikking + spelers/technische vergunningen
 	$res = VBLapi::apiCall("TeamMatchesByGuid?teamGuid=".VBLapi::club_guid.$parsed_id); // AllMatchesOfTeam
 	$te = json_decode($res);
-	$team_name = codeToName(substr($id, 0,3))." ".substr($id,-1);
+	$team_name = Helpers::teamCodeToReadableName($id);
 	$all_matches = array();
 	foreach($te as $t){
 		$json_match = json_encode($t);
@@ -117,7 +117,11 @@ Route::get('/contact/', function () {
 });
 
 Route::get('/admin', function() {
-	return "Admin menu";
+	return view("layouts.app");
+})->middleware('auth');
+
+Route::get('/admin/ploegen', function() {
+	VBLapi::getAllClubTeams();
 })->middleware('auth');
 
 // Authentication Routes...
@@ -138,19 +142,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 //***********************************************************************************
-
-
-function codeToName($code){
-
-	$arr = Helpers::teamCodeToName();
-	if (array_key_exists($code, $arr)){
-		return $arr[$code];
-	} else {
-		return $code;
-	}
-
-
-}
 
 function turnToPouleArray($poules){
 	$ret = array();
