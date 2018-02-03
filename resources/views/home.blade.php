@@ -50,9 +50,9 @@
       "performer": {
           "@type": "PerformingGroup",
           @if($match->homeGame)
-            "name": "{{ $match-tTNaam }}"
+            "name": "{{ $match->tTNaam }}"
           @else
-            "name": "{{ $match-tUNaam }}"
+            "name": "{{ $match->tUNaam }}"
           @endif
           
       }
