@@ -22,12 +22,13 @@
 @endsection
 
 @section('scripts')
-<script type="application/ld+json">
+
   @foreach($this_week_matches as $match)
     @php
       $dt = date_create_from_format("d-m-Y G.i", $match->datumString." ".$match->beginTijd);
       $startDate = date_format($dt, DateTime::ATOM)
     @endphp
+    <script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "Event",
@@ -41,7 +42,8 @@
         }
       },
       "startDate": "{{ $startDate }}"
-    },
+    }
+    </script>
   @endforeach
-</script>
+
 @endsection
