@@ -35,13 +35,28 @@
       "name": "{{ $match->tTNaam}} VS {{ $match->tUNaam }}",
       "location": {
         "@type": "Place",
-        "name": "{{ $match->extraDetails->adress }}",
+        @if($match->homeGame)
+          "name": "Sint Victor Turnhout",
+        @else
+          "name": "{{ $match->extraDetails->adress }}",
+        @endif
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "{{ $match->extraDetails->adress }}"
         }
       },
-      "startDate": "{{ $startDate }}"
+      "startDate": "{{ $startDate }}",
+      "description": "Basketbalwedstrijd {{ $match->tTNaam}} VS {{ $match->tUNaam }}.",
+      "performer": {
+          "@type": "PerformingGroup",
+          @if($match->homeGame)
+            "name": "{{ $match-tTNaam }}"
+          @else
+            "name": "{{ $match-tUNaam }}"
+          @endif
+          
+      }
+
     }
     </script>
   @endforeach
