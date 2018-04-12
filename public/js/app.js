@@ -25,8 +25,8 @@ function toggleDetails(caller){
 $(document).ready(function(){
     setTimeout(() => {
         $(".match-extra-details").each(function(){
-            $(this).slideUp();
-        });
+        $(this).slideUp();
+    });
     }, 1000);
 
 });
