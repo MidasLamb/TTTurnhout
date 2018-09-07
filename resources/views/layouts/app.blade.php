@@ -100,7 +100,7 @@
                 'event_category': 'link',
                 'event_label': 'beta',
                 'value': 1
-              };console.log('gtag test')">Naar de nieuwe site</a>
+              });">Naar de nieuwe site</a>
             </div>
           </div>
       </div>
