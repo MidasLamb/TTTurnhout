@@ -18,6 +18,11 @@ use App\Libraries\VBLteam;
 
 */
 
+Route::get('/beta', function () {
+	return redirect('https://beta.ttturnhout.be');
+});
+
+
 Route::get('/', function () {
 
 

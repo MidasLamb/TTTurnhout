@@ -27,7 +27,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-110519674-1');
+      gtag('config', 'UA-110519674-1', {'anonymize_ip': true});
     </script>
   </head>
   <body>
@@ -87,6 +87,23 @@
     </nav>
 
     <div style="margin-top:50px">
+
+      <div class="jumbotron" style='display:flex;justify-content:center;padding-left:10%;padding-right:10%;'>
+          <div>
+            <h1>Nieuwe site</h1>
+            <p>
+              Momenteel wordt er gewerkt aan een nieuwe site. Je kan deze al bezoeken en eens rondkijken. Feedback mag altijd naar <a href="mailto:midaslamb@gmail.com">midaslamb@gmail.com</a> gestuurd worden.
+            </p>
+            <div>
+              <a class="btn btn-primary btn-lg" href="/beta" onclick="gtag('event', 'click', {
+                'event_category': 'link',
+                'event_label': 'beta',
+                'value': 1
+              }">Naar de nieuwe site</a>
+            </div>
+          </div>
+      </div>
+
       @yield('content')
     </div>
 
