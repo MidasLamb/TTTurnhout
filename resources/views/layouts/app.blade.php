@@ -29,6 +29,7 @@
 
       gtag('config', 'UA-110519674-1', {'anonymize_ip': true});
     </script>
+
   </head>
   <body>
 
