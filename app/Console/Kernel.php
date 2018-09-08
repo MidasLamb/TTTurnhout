@@ -28,22 +28,22 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function() {
-            chdir('/home/ttturn1q/ttturnhout/public');
+            chdir(__DIR__.'/../../public');
             VBLapi::renewCache();
         })->weekdays()->twiceDaily(9,19);
 
         $schedule->call(function() {
-            chdir('/home/ttturn1q/ttturnhout/public');
+            chdir(__DIR__.'/../../public');
             VBLapi::renewCache();
         })->weekdays()->twiceDaily(22,23);
 
         $schedule->call(function() {
-            chdir('/home/ttturn1q/ttturnhout/public');
+            chdir(__DIR__.'/../../public');
             VBLapi::renewCache();
         })->saturdays()->everyThirtyMinutes();
 
         $schedule->call(function() {
-            chdir('/home/ttturn1q/ttturnhout/public');
+            chdir(__DIR__.'/../../public');
             VBLapi::renewCache();
         })->sundays()->everyThirtyMinutes();
 
