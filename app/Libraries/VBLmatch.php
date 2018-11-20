@@ -187,7 +187,7 @@ class VBLmatch {
 		$organizedArray = array();
 		foreach($matches as $match){
 			$date = strtotime($match->datumString, 0);
-			if (array_key_exists($date, $organizedArray)){
+			if ($date && array_key_exists($date, $organizedArray)){
 				array_push($organizedArray[$date], $match);
 			} else {
 				$organizedArray[$date] = [$match];
